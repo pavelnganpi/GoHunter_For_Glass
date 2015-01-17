@@ -103,6 +103,15 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
         switch (gesture){
 
             case TAP:
+
+                //when taped, set the image into the respective imageview
+                int position = mCardScrollView.getSelectedItemPosition();
+                CategoryManager categoryManager = CategoryManager.getInstance();
+                Category category = categoryManager.getCategoryAt(position);
+                category.setPhotoFileName(mNewPhotoFileName);
+                categoryManager.setLastSelectedCategory(category);
+                mAudioManager.playSoundEffect(Sounds.TAP);
+
                 handled = true;
                 break;
             case SWIPE_DOWN:
