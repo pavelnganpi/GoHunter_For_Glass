@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
@@ -14,11 +15,15 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
 
     public static final String EXTRA_PHOTO_FILE_NAME = "photo file name";
     String mNewPhotoFileName ;
+    GestureDetector mDetector;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mDetector = new GestureDetector(this);
+        mDetector.setBaseListener(this);
 
         Intent startUpIntent = getIntent();
         mNewPhotoFileName = getIntent().getStringExtra(EXTRA_PHOTO_FILE_NAME);
@@ -46,6 +51,12 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //means any detection from glass should be passed to the mDetector for handling
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        return mDetector.onMotionEvent(event);
     }
 
     @Override
