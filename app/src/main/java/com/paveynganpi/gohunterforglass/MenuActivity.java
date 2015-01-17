@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ public class MenuActivity extends Activity {
 
     private boolean mAttachedWindow;
     private boolean mOptionsMenuOpen;
+    private static final int PHOTO_REQUEST_CODE = 1;
     Handler mHandler = new Handler();
 
     @Override
@@ -89,7 +91,17 @@ public class MenuActivity extends Activity {
 
     private void handleTakeAPicture() {
 
-        Toast.makeText(this,"Take a picture Selected",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"Take a picture Selected",Toast.LENGTH_LONG).show();
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(photoIntent,PHOTO_REQUEST_CODE);
+
+            }
+        });
+
 
     }
 
