@@ -40,7 +40,9 @@ public class MenuActivity extends Activity {
     public void onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
         mOptionsMenuOpen = false;
-        finish();
+        if(!mTakingPhotos) {
+            finish();
+        }
     }
 
     @Override
@@ -94,7 +96,7 @@ public class MenuActivity extends Activity {
 
     private void handleTakeAPicture() {
 
-        //Toast.makeText(this,"Take a picture Selected",Toast.LENGTH_LONG).show();
+        mTakingPhotos = true;
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -141,6 +143,7 @@ public class MenuActivity extends Activity {
             String photoFilePath=data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
             Toast.makeText(this,"Photo :"+photoFilePath, Toast.LENGTH_LONG).show();
         }
+        finish();
 
      }
 }
