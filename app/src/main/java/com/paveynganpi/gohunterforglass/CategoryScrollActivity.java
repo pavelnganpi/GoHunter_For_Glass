@@ -55,7 +55,26 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
 
     public void setUpCardScrollView(){
 
-        mCardScrollView = new CardScrollView(this);
+        mCardScrollView = new CardScrollView(this){
+
+            @Override
+            protected boolean dispatchGenericFocusedEvent(MotionEvent event) {
+
+                boolean handled = false;
+
+                //if this are the events important to us, we go and process them
+                if(mDetector.onMotionEvent(event)){
+                    handled = true;
+                }
+                else{
+
+                    //else we leave it to the the default behavior
+                    super.dispatchGenericFocusedEvent(event);
+                }
+
+                return handled;
+            }
+        };
         mCardScrollView.setHorizontalScrollBarEnabled(true);//enables horizontal scrolling
 
         //feed data into this card scroll view
