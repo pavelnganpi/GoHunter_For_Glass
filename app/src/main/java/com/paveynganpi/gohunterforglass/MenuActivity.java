@@ -1,15 +1,21 @@
 package com.paveynganpi.gohunterforglass;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.glass.timeline.LiveCard;
 
 
 public class MenuActivity extends Activity {
 
     private boolean mAttachedWindow;
     private boolean mOptionsMenuOpen;
+    Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +64,56 @@ public class MenuActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        boolean handled = true;
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        switch(id) {
+            case R.id.action_start_new_game:
+                handleStartNewGame();
+                break;
+            case R.id.action_take_a_picture:
+                handleTakeAPicture();
+                break;
+            case R.id.action_view_categories:
+                handleViewCategories();
+                break;
+            case R.id.action_stop:
+                handleStop();
+                break;
+            default:
+                handled = super.onOptionsItemSelected(item);
+        }
 
-        return super.onOptionsItemSelected(item);
+        return handled;
+    }
+
+    private void handleTakeAPicture() {
+
+        Toast.makeText(this,"Take a picture Selected",Toast.LENGTH_LONG).show();
+
+    }
+
+    private void handleStop() {
+
+        Toast.makeText(this,"BYE BYE",Toast.LENGTH_LONG).show();
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                stopService(new Intent(MenuActivity.this, LiveCardService.class));
+            }
+        });
+
+    }
+
+    private void handleViewCategories() {
+
+        Toast.makeText(this,"View Categories Selected",Toast.LENGTH_LONG).show();
+    }
+
+    private void handleStartNewGame() {
+
+        Toast.makeText(this,"Start Selected",Toast.LENGTH_LONG).show();
+
     }
 }
