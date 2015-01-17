@@ -140,8 +140,20 @@ public class MenuActivity extends Activity {
 
         if(requestCode == PHOTO_REQUEST_CODE && resultCode == RESULT_OK){
 
-            String photoFilePath=data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
-            Toast.makeText(this,"Photo :"+photoFilePath, Toast.LENGTH_LONG).show();
+            final String photoFilePath=data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
+            //Toast.makeText(this,"Photo :"+photoFilePath, Toast.LENGTH_LONG).show();
+
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    Intent intent = new Intent(MenuActivity.this,CategoryScrollActivity.class);
+                    intent.putExtra(CategoryScrollActivity.EXTRA_PHOTO_FILE_NAME,photoFilePath);
+                    startActivity(intent);
+
+                }
+            });
+
         }
         finish();
 
