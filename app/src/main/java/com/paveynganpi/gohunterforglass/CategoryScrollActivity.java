@@ -35,6 +35,18 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCardScrollView.activate();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCardScrollView.deactivate();
+    }
+
     public void setUpCardScrollView(){
 
         mCardScrollView = new CardScrollView(this);
