@@ -1,7 +1,9 @@
 package com.paveynganpi.gohunterforglass;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,11 +21,14 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
     String mNewPhotoFileName ;
     GestureDetector mDetector;
     CardScrollView mCardScrollView;
+    AudioManager mAudioManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         mDetector = new GestureDetector(this);
         mDetector.setBaseListener(this);
