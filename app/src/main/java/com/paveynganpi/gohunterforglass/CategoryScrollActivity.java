@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -97,6 +98,22 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
 
     @Override
     public boolean onGesture(Gesture gesture) {
-        return false;
+
+        boolean handled = false;
+        switch (gesture){
+
+            case TAP:
+                handled = true;
+                break;
+            case SWIPE_DOWN:
+                handled = true;
+                mAudioManager.playSoundEffect(Sounds.DISMISSED);
+                break;
+        }
+
+        if (handled)
+            finish();
+
+        return handled;
     }
 }
