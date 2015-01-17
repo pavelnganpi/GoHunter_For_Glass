@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 
-public class CategoryScrollActivity extends Activity {
+
+public class CategoryScrollActivity extends Activity implements GestureDetector.BaseListener{
 
     public static final String EXTRA_PHOTO_FILE_NAME = "photo file name";
+    String mNewPhotoFileName ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-
+        Intent startUpIntent = getIntent();
+        mNewPhotoFileName = getIntent().getStringExtra(EXTRA_PHOTO_FILE_NAME);
 
     }
 
@@ -42,5 +46,10 @@ public class CategoryScrollActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onGesture(Gesture gesture) {
+        return false;
     }
 }
