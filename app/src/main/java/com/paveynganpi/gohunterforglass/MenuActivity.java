@@ -2,6 +2,7 @@ package com.paveynganpi.gohunterforglass;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.glass.content.Intents;
 import com.google.android.glass.timeline.LiveCard;
 
 
@@ -17,6 +19,7 @@ public class MenuActivity extends Activity {
     private boolean mAttachedWindow;
     private boolean mOptionsMenuOpen;
     private static final int PHOTO_REQUEST_CODE = 1;
+    private boolean mTakingPhotos;
     Handler mHandler = new Handler();
 
     @Override
@@ -129,4 +132,15 @@ public class MenuActivity extends Activity {
         CategoryManager.getInstance().InitializeWithNewCategories();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == PHOTO_REQUEST_CODE && resultCode == RESULT_OK){
+
+            String photoFilePath=data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
+            Toast.makeText(this,"Photo :"+photoFilePath, Toast.LENGTH_LONG).show();
+        }
+
+     }
 }
