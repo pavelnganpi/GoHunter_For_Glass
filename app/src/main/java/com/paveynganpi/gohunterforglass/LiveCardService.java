@@ -40,24 +40,24 @@ public class LiveCardService extends Service {
 
             mLiveCard.setViews(mRemoteViews);
 
-            Intent cardActionIntent = new Intent(this,LiveCardService.class);//create an intent for this service
-            cardActionIntent.setAction(ACTION_STOP);
-            mLiveCard.setAction(PendingIntent.getService(this, 0, cardActionIntent, 0));
+            Intent cardActionIntent = new Intent(this,MenuActivity.class);//create an intent for this service
+            mLiveCard.setAction(PendingIntent.getActivity(this, 0, cardActionIntent, 0));//changed from PendingIntent.
+            //getService to getActivity since we want to display the menu in the menuActivity
 
             mLiveCard.publish(LiveCard.PublishMode.REVEAL);//add live card to timeline and take user to it
 
 
         }
         else {
-
-            if(ACTION_STOP == intent.getAction()){
-                stopSelf();
-            }
-            else{
+//
+//            if(ACTION_STOP == intent.getAction()){
+//                stopSelf();
+//            }
+//            else{
 
                 mLiveCard.navigate();
 
-            }
+            //}
 
         }
         return START_STICKY;//keeps it running

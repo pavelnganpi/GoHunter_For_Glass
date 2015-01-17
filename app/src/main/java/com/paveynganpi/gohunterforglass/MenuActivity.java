@@ -114,6 +114,7 @@ public class MenuActivity extends Activity {
     private void handleStartNewGame() {
 
         Toast.makeText(this,"Start Selected",Toast.LENGTH_LONG).show();
+        CategoryManager.getInstance().InitializeWithNewCategories();
 
     }
 }
