@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import com.google.android.glass.widget.CardScrollAdapter;
+import com.google.android.glass.widget.CardScrollView;
 
 
 public class CategoryScrollActivity extends Activity implements GestureDetector.BaseListener{
@@ -16,6 +18,7 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
     public static final String EXTRA_PHOTO_FILE_NAME = "photo file name";
     String mNewPhotoFileName ;
     GestureDetector mDetector;
+    CardScrollView mCardScrollView;
 
 
     @Override
@@ -25,8 +28,24 @@ public class CategoryScrollActivity extends Activity implements GestureDetector.
         mDetector = new GestureDetector(this);
         mDetector.setBaseListener(this);
 
+        setUpCardScrollView();
+
         Intent startUpIntent = getIntent();
         mNewPhotoFileName = getIntent().getStringExtra(EXTRA_PHOTO_FILE_NAME);
+
+    }
+
+    public void setUpCardScrollView(){
+
+        mCardScrollView = new CardScrollView(this);
+        mCardScrollView.setHorizontalScrollBarEnabled(true);//enables horizontal scrolling
+
+        //feed data into this card scroll view
+        CardScrollAdapter adapter = new CategoryScrollAdapter(this,CategoryManager.getInstance());
+        mCardScrollView.setAdapter(adapter);
+
+        setContentView(mCardScrollView);//content of this activity is this mCardScrollView
+
 
     }
 
