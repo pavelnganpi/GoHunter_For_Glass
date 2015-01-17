@@ -1,10 +1,15 @@
 package com.paveynganpi.gohunterforglass;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
@@ -35,7 +40,29 @@ public class CategoryScrollAdapter extends CardScrollAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+
+        if(view == null){
+
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            view = inflater.inflate(R.layout.category_card,viewGroup);
+
+        }
+
+        TextView textName = (TextView) view.findViewById(R.id.name);
+        ImageView imagePhoto = (ImageView) view.findViewById(R.id.photo);
+
+        Category category = (Category) getItem(i);
+        textName.setText(category.getName());
+
+        String photoFilePath = category.getPhotoFileName();
+        if(photoFilePath != null){
+
+            Bitmap photoBitmap = BitmapFactory.decodeFile(photoFilePath);//decode the filepath into bitmap
+            imagePhoto.setImageBitmap(photoBitmap);
+
+        }
+
+        return view;
     }
 
     @Override
