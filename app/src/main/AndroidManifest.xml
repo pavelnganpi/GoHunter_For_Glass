@@ -10,15 +10,19 @@
             android:name=".LiveCardService"
             android:enabled="true"
             android:exported="true" >
-            <intent-filter >
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"/>
-
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
+
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
-                android:resource="@xml/voice_trigger_start"
-                />
+                android:resource="@xml/voice_trigger_start" />
         </service>
+
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
     </application>
 
 </manifest>
